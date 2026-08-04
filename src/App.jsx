@@ -1,7 +1,5 @@
+import Scene from "./scene/Scene";
+
 export default function App() {
-  return (
-    <>
-      <h1>Scroll World AI</h1>
-    </>
-  );
+  return <Scene />;
 }
