@@ -9,7 +9,7 @@ export default function App() {
       {/* Fake scroll area */}
       <div
         style={{
-          height: "500vh",
+          height: "2000vh",
           width: "100%",
           position: "absolute",
           top: 0,
