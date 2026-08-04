@@ -13,8 +13,8 @@ export default function Scene() {
     <Canvas
       shadows
       camera={{
-        position: [0, 8, 20],
-        fov: 45,
+        position: [0, 2.5, 20],
+        fov: 55,
       }}
     >
       <CameraRig />
