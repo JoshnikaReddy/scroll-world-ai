@@ -1,26 +1,30 @@
 import { Canvas } from "@react-three/fiber";
+
+import CameraRig from "../components/camera/CameraRig";
+import WorldEnvironment from "../components/environment/Environment";
 import Lights from "../components/lighting/Lights";
-import Ground from "../components/world/Ground";
+import World from "./World";
 
 export default function Scene() {
   return (
     <Canvas
       shadows
       camera={{
-        position: [0, 3, 8],
+        position: [0, 8, 20],
         fov: 45,
       }}
     >
-      <color attach="background" args={["#050505"]} />
+      <CameraRig />
+
+      <color attach="background" args={["#bfd7ff"]} />
+
+      <fog attach="fog" args={["#bfd7ff", 40, 180]} />
+
+      <WorldEnvironment />
 
       <Lights />
 
-      <Ground />
-
-      <mesh position={[0, 1, 0]} castShadow>
-        <boxGeometry args={[2, 2, 2]} />
-        <meshStandardMaterial color="#ff7a00" />
-      </mesh>
+      <World />
     </Canvas>
   );
 }

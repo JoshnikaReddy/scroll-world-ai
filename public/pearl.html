@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pearl & Co. — Where Every Sip Begins</title>
+  <meta name="description" content="Scroll to discover the world of Pearl & Co. — from sun-soaked tea farms to hand-crafted boba pearls delivered to your door." />
+
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #F2EBD9; overflow-x: hidden; }
+
+    /* ── Pearl & Co. Top Bar ───────────────────────────────────── */
+    #pearl-topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: clamp(14px,2vw,22px) clamp(18px,4vw,52px);
+      gap: 16px;
+    }
+    .pearl-logo {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; color: #2C1A0E; cursor: pointer;
+    }
+    .pearl-logo__icon {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: #2C1A0E; display: flex; align-items: center; justify-content: center;
+    }
+    .pearl-logo__icon svg { width: 16px; height: 16px; fill: #F2EBD9; }
+    .pearl-logo__name {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 1.2rem; letter-spacing: -0.01em; color: #2C1A0E;
+    }
+
+    /* ── Pill Nav ──────────────────────────────────────────────── */
+    #pearl-nav {
+      display: flex; gap: 4px; padding: 5px;
+      background: rgba(250,246,238,0.72);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(44,26,14,0.12); border-radius: 999px;
+      box-shadow: 0 2px 16px rgba(44,26,14,0.07);
+    }
+    .pnav-btn {
+      font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 500;
+      color: #7B5C40; border: 0; background: transparent; cursor: pointer;
+      padding: 7px 18px; border-radius: 999px;
+      transition: color 0.25s, background 0.25s; white-space: nowrap;
+    }
+    .pnav-btn:hover { color: #2C1A0E; }
+    .pnav-btn.is-active {
+      color: #FAF6EE; background: #E85D26;
+      box-shadow: 0 2px 10px rgba(232,93,38,0.3);
+    }
+
+    /* ── Order Now CTA ─────────────────────────────────────────── */
+    #pearl-cta {
+      text-decoration: none; font-family: 'Inter', sans-serif;
+      font-weight: 600; font-size: 0.9rem; color: #FAF6EE;
+      background: #2C1A0E; padding: 10px 24px; border-radius: 999px;
+      white-space: nowrap; box-shadow: 0 4px 14px rgba(44,26,14,0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #pearl-cta:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(44,26,14,0.35); }
+
+    /* ── Right side section label ──────────────────────────────── */
+    .section-label {
+      position: fixed; right: 56px; top: 50%; transform: translateY(-50%);
+      z-index: 45; display: flex; flex-direction: column; align-items: flex-end;
+      gap: 6px; pointer-events: none;
+    }
+    .section-label__text {
+      font-family: 'Inter', sans-serif; font-size: 0.76rem; font-weight: 600;
+      color: #2C1A0E; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55;
+    }
+    .section-label__dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #E85D26; align-self: flex-end;
+    }
+
+    /* ── Right timeline bar ────────────────────────────────────── */
+    .pearl-timeline {
+      position: fixed; right: 28px; top: 50%; transform: translateY(-50%);
+      z-index: 44; display: flex; flex-direction: column; height: 200px;
+    }
+    .pearl-timeline__bar {
+      width: 2px; flex: 1; background: rgba(44,26,14,0.15);
+      border-radius: 2px; position: relative; overflow: hidden;
+    }
+    .pearl-timeline__fill {
+      position: absolute; top: 0; left: 0; width: 100%;
+      background: #E85D26; border-radius: 2px; height: 0%;
+    }
+
+    /* ── Bottom timecode bar ───────────────────────────────────── */
+    .pearl-timecode {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      z-index: 40; display: flex; align-items: center; gap: 12px;
+      font-size: 0.72rem; font-family: ui-monospace, monospace;
+      color: #7B5C40; opacity: 0.8;
+    }
+    .pearl-timecode__bar {
+      width: 260px; height: 3px; background: rgba(44,26,14,0.15);
+      border-radius: 3px; position: relative; overflow: hidden;
+    }
+    .pearl-timecode__progress {
+      position: absolute; left: 0; top: 0; height: 100%;
+      background: #E85D26; border-radius: 3px; width: 0%;
+    }
+    .pearl-timecode__thumb {
+      position: absolute; top: 50%; transform: translate(-50%,-50%);
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #E85D26; left: 0%;
+      box-shadow: 0 2px 6px rgba(232,93,38,0.45);
+    }
+
+    /* ── Ambient fog ───────────────────────────────────────────── */
+    .pearl-fog {
+      position: fixed; inset: 0; z-index: 5; pointer-events: none;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(242,235,217,0.5) 0%, transparent 70%);
+    }
+
+    @media (max-width: 860px) {
+      #pearl-nav { display: none; }
+      .section-label { display: none; }
+      .pearl-timeline { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pearl-fog"></div>
+
+  <!-- Custom Pearl & Co. Topbar -->
+  <header id="pearl-topbar">
+    <a class="pearl-logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      <span class="pearl-logo__icon">
+        <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>
+      </span>
+      <span class="pearl-logo__name">Pearl &amp; Co.</span>
+    </a>
+
+    <nav id="pearl-nav">
+      <button class="pnav-btn is-active" data-idx="0">The Farms</button>
+      <button class="pnav-btn" data-idx="1">The Kitchen</button>
+      <button class="pnav-btn" data-idx="2">The Flagship</button>
+      <button class="pnav-btn" data-idx="3">Delivery</button>
+      <button class="pnav-btn" data-idx="4">The People</button>
+      <button class="pnav-btn" data-idx="5">The Cup</button>
+    </nav>
+
+    <a href="#" id="pearl-cta">Order now</a>
+  </header>
+
+  <!-- Right section label -->
+  <div class="section-label">
+    <span class="section-label__text" id="section-label-text">The Farms</span>
+    <span class="section-label__dot"></span>
+  </div>
+
+  <!-- Right timeline bar -->
+  <div class="pearl-timeline">
+    <div class="pearl-timeline__bar">
+      <div class="pearl-timeline__fill" id="pearl-timeline-fill"></div>
+    </div>
+  </div>
+
+  <!-- Scroll World Engine Mount -->
+  <div id="world"></div>
+
+  <!-- Bottom timecode bar -->
+  <div class="pearl-timecode">
+    <span id="tc-current">00:00:00</span>
+    <div class="pearl-timecode__bar">
+      <div class="pearl-timecode__progress" id="tc-progress"></div>
+      <div class="pearl-timecode__thumb" id="tc-thumb"></div>
+    </div>
+    <span id="tc-total">00:00:54</span>
+  </div>
+
+  <script src="scrub-engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      mountScrollWorld(document.getElementById('world'), {
+        brand: false, nav: false, cta: false,
+        hint: 'Scroll to explore',
+        diveScroll: 1.4, connScroll: 1.0,
+        atmosphere: false,
+        sections: [
+          {
+            id: 'the-farms', label: 'The Farms',
+            still: 'assets/pearl-farms.webp', stillMobile: 'assets/pearl-farms.webp',
+            clip: 'assets/vid/scene1.mp4', clipMobile: 'assets/vid/scene1-m.mp4',
+            accent: '#6BBF6A',
+            eyebrow: 'Where It All Begins',
+            title: 'Sun-soaked\nfields of gold.',
+            body: 'We partner with generations-old tea farms nestled in mountain valleys, where morning mist and volcanic soil give our teas their unmistakable depth.',
+            tags: ['Single-Origin', 'Family Farms', 'Shade-Grown'],
+          },
+          {
+            id: 'the-kitchen', label: 'The Kitchen',
+            still: 'assets/scene2.webp', stillMobile: 'assets/scene2-m.webp',
+            clip: 'assets/vid/scene2.mp4', clipMobile: 'assets/vid/scene2-m.mp4',
+            accent: '#E85D26',
+            eyebrow: 'Where Pearls Are Born',
+            title: 'Inside the pearl\nkitchen.',
+            body: 'The roof opens and the cauldron never stops simmering. Tea fills the air, texture perfected daily — freshness is everything.',
+            tags: ['Fresh-cooked pearls', 'Brewed freshly', 'Hand-crafted'],
+          },
+          {
+            id: 'the-flagship', label: 'The Flagship',
+            still: 'assets/scene3.webp', stillMobile: 'assets/scene3-m.webp',
+            clip: 'assets/vid/scene3.mp4', clipMobile: 'assets/vid/scene3-m.mp4',
+            accent: '#5C4A8A',
+            eyebrow: 'The Mothership',
+            title: 'Our flagship\nin the city.',
+            body: 'A full sensory destination — our flagship store is a living extension of the world. Watch pearls cook through glass, taste every blend at the bar.',
+            tags: ['Live Pearl Bar', 'Tasting Menu', 'Open Kitchen'],
+          },
+          {
+            id: 'delivery', label: 'Delivery',
+            still: 'assets/scene4.webp', stillMobile: 'assets/scene4-m.webp',
+            clip: 'assets/vid/scene4.mp4', clipMobile: 'assets/vid/scene4-m.mp4',
+            accent: '#4ABCB5',
+            eyebrow: 'From Us to You',
+            title: 'Delivered fresh,\nnot frozen.',
+            body: 'Temperature-controlled delivery means your pearls arrive plump, warm, and chef-ready. Order by 10AM, sip by noon.',
+            tags: ['Same-day', 'Zero Waste Packaging', 'Track Your Order'],
+          },
+          {
+            id: 'the-people', label: 'The People',
+            still: 'assets/scene2.webp', stillMobile: 'assets/scene2-m.webp',
+            clip: 'assets/vid/scene2.mp4', clipMobile: 'assets/vid/scene2-m.mp4',
+            accent: '#D4A843',
+            eyebrow: 'The Makers',
+            title: 'Crafted by\nhands with care.',
+            body: 'Every shift, our team of 40+ artisans oversees the brew — checking ratios, tasting every batch, and never cutting corners.',
+            tags: ['Artisan Team', 'Trained In-House', 'Passion-First'],
+          },
+          {
+            id: 'the-cup', label: 'The Cup',
+            still: 'assets/pearl-farms.webp', stillMobile: 'assets/pearl-farms.webp',
+            clip: 'assets/vid/scene1.mp4', clipMobile: 'assets/vid/scene1-m.mp4',
+            accent: '#E85D26',
+            eyebrow: 'The Final Form',
+            title: 'One cup.\nPerfectly made.',
+            body: 'Six scenes, one mission — to put the most perfect cup of boba in your hands. Every. Single. Time.',
+            tags: ['Signature Blend', '35+ Flavors', 'Made to Order'],
+            cta: {
+              primary: { label: 'Order now', href: '#' },
+              secondary: { label: 'Explore our menu', href: '#' }
+            },
+          },
+        ],
+        connectors: [
+          'assets/vid/scene1.mp4','assets/vid/scene2.mp4',
+          'assets/vid/scene3.mp4','assets/vid/scene4.mp4','assets/vid/scene4.mp4',
+        ],
+        connectorsMobile: [
+          'assets/vid/scene1-m.mp4','assets/vid/scene2-m.mp4',
+          'assets/vid/scene3-m.mp4','assets/vid/scene4-m.mp4','assets/vid/scene4-m.mp4',
+        ]
+      });
+
+      // ── Sync nav, label, timeline, timecode with scroll ─────────
+      const labels = ['The Farms','The Kitchen','The Flagship','Delivery','The People','The Cup'];
+      const navBtns = document.querySelectorAll('.pnav-btn');
+      const sectionLabelText = document.getElementById('section-label-text');
+      const timelineFill = document.getElementById('pearl-timeline-fill');
+      const tcProgress = document.getElementById('tc-progress');
+      const tcThumb = document.getElementById('tc-thumb');
+      const tcCurrent = document.getElementById('tc-current');
+      const totalSec = 54;
+      let lastActive = -1;
+
+      function fmt(sec) {
+        const h = Math.floor(sec/3600).toString().padStart(2,'0');
+        const m = Math.floor((sec%3600)/60).toString().padStart(2,'0');
+        const s = Math.floor(sec%60).toString().padStart(2,'0');
+        return `${h}:${m}:${s}`;
+      }
+
+      function syncPearl() {
+        const y = window.scrollY;
+        const maxY = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = maxY > 0 ? Math.min(1, y / maxY) : 0;
+
+        tcProgress.style.width = (pct * 100) + '%';
+        tcThumb.style.left = (pct * 100) + '%';
+        tcCurrent.textContent = fmt(pct * totalSec);
+        timelineFill.style.height = (pct * 100) + '%';
+
+        const active = Math.min(5, Math.floor(pct * 6));
+        if (active !== lastActive) {
+          lastActive = active;
+          navBtns.forEach((b, i) => b.classList.toggle('is-active', i === active));
+          sectionLabelText.textContent = labels[active];
+        }
+      }
+
+      window.addEventListener('scroll', () => requestAnimationFrame(syncPearl), { passive: true });
+
+      navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.idx);
+          const maxY = document.documentElement.scrollHeight - window.innerHeight;
+          window.scrollTo({ top: (idx / 6) * maxY + (maxY / 12), behavior: 'smooth' });
+        });
+      });
+
+      syncPearl();
+    });
+  </script>
+</body>
+</html>
